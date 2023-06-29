@@ -38,6 +38,7 @@ cd /mnt
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@var
+cd ..
 sleep 10
 umount -f /mnt
 
