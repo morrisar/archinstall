@@ -56,7 +56,7 @@ pacman -Sy
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
-pacstrap -K /mnt base linux linux-firmware intel-ucode btrfs-progs reflector
+pacstrap -K /mnt base linux linux-firmware intel-ucode btrfs-progs reflector git neovim
 
 # ------------------------------------------------------
 # Generate fstab
