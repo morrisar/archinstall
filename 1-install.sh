@@ -34,10 +34,11 @@ mkfs.btrfs -f /dev/$sda2
 # Mount points for btrfs
 # ------------------------------------------------------
 mount /dev/$sda2 /mnt
-cd /mnt || return
+cd /mnt
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@var
+sleep 10
 umount /mnt
 
 mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@ /dev/$sda2 /mnt
@@ -55,7 +56,7 @@ pacman -Sy
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
-pacstrap -K /mnt base git linux linux-firmware neovim intel-ucode btrfs-progs reflector
+pacstrap -K /mnt base linux linux-firmware intel-ucode btrfs-progs reflector
 
 # ------------------------------------------------------
 # Generate fstab
