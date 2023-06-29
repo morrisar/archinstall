@@ -39,7 +39,7 @@ btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@var
 sleep 10
-umount /mnt
+umount -f /mnt
 
 mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@ /dev/$sda2 /mnt
 mkdir -p /mnt/{boot/efi,home,var}
