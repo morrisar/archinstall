@@ -1,8 +1,8 @@
 #!/bin/bash
 clear
 echo "Arch Install Script"
-echo "by Stephan Raabe (2023)"
 echo "Edited by big dick Morris (Still 2023)"
+echo ""
 echo "-----------------------------------------------------"
 echo ""
 echo "Important: Please make sure that you have followed the "
@@ -34,19 +34,27 @@ mkfs.btrfs -f /dev/$sda2
 # Mount points for btrfs
 # ------------------------------------------------------
 mount /dev/$sda2 /mnt
+(
 cd /mnt
 btrfs subvolume create /mnt/@
 btrfs subvolume create /mnt/@home
 btrfs subvolume create /mnt/@var
-cd ..
-sleep 10
+)
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
 umount -f /mnt
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
 
 mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@ /dev/$sda2 /mnt
 mkdir -p /mnt/{boot/efi,home,var}
 mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@home /dev/$sda2 /mnt/home
 mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@var /dev/$sda2 /mnt/var
 mount /dev/$sda1 /mnt/boot/efi
+
+read -p "Press any key to continue ..."
 
 # ------------------------------------------------------
 # Select the fastest mirrors for location
