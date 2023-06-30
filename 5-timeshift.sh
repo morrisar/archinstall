@@ -41,7 +41,7 @@ while true; do
 done
 
 # -----------------------------------------------------
-# Install zram
+# Install Timeshift
 # -----------------------------------------------------
 yay --noconfirm -S timeshift
 
