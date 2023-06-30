@@ -33,7 +33,7 @@ pacman -Syy
 # ------------------------------------------------------
 # Install Packages
 # ------------------------------------------------------
-pacman -S grub grub-btrfs efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools base-devel linux-headers bluez bluez-utils cups hplip alsa-utils pipewire pipewire-also pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call tlp sof-firmware acpid os-prober ntfs-3g nvidia nvidia-utils nvidia-settings man git neovim
+pacman -S grub grub-btrfs efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools base-devel linux-headers bluez bluez-utils cups hplip alsa-utils pipewire pipewire-also pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call tlp sof-firmware acpid os-prober ntfs-3g nvidia nvidia-utils nvidia-settings man 
 
 # ------------------------------------------------------
 # set lang utf8 US
@@ -70,13 +70,37 @@ passwd $username
 # Enable Services
 # ------------------------------------------------------
 systemctl enable NetworkManager
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
 systemctl enable bluetooth
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
 systemctl enable cups.service
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
 systemctl enable sshd
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
 systemctl enable tlp
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
 systemctl enable reflector.timer
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
 systemctl enable fstrim.timer
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
 systemctl enable acpid
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
 
 # ------------------------------------------------------
 # Grub installation
