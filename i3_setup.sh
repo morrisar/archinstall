@@ -1,15 +1,12 @@
 #!/bin/bash
 
-pacman -S xorg xorg-init i3 lxappearance archlinux-wallpaper picom firefox nitrogen kitty arc-gtk-theme papirus-icon-theme thunar rofi
+pacman -S xorg xorg-xinit i3 lxappearance archlinux-wallpaper picom firefox nitrogen kitty arc-gtk-theme papirus-icon-theme thunar rofi
 process_id=$!
 wait $process_id
 echo "Exit status: $?"
-sudo systemctl enable lightdm
+cp /etc/X11/xinit/xinitrc ~/.xinitrc
 process_id=$!
 wait $process_id
 echo "Exit status: $?"
-yay lightdm-settings
-echo "greeter-session=lightdm-slick-greeter"
-echo "session-wrapper=/etc/lightdm/Xsession"
+echo "Delete lines after fi in .xinitrc (chown) and add "exec i3""
 read -p "Press any key to continue..."
-nvim /etc/lightdm/lightdm.conf

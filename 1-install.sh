@@ -82,6 +82,7 @@ cp 4-zram.sh /mnt/archinstall/
 cp 5-timeshift.sh /mnt/archinstall/
 cp 6-preload.sh /mnt/archinstall/
 cp snapshot.sh /mnt/archinstall/
+cp i3_setup.sh /mnt/archinstall/
 
 # ------------------------------------------------------
 # Chroot to installed sytem
