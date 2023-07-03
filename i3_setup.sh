@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pacman -S xorg xorg-xinit i3 lxappearance archlinux-wallpaper picom firefox nitrogen kitty arc-gtk-theme papirus-icon-theme thunar rofi xclip
+pacman -S xorg xorg-xinit i3 lxappearance archlinux-wallpaper picom firefox nitrogen kitty arc-gtk-theme papirus-icon-theme thunar rofi xclip gpick
 process_id=$!
 wait $process_id
 echo "Exit status: $?"
