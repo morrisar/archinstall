@@ -1,7 +1,6 @@
 #!/bin/bash
 clear
 echo "Arch Install Script"
-echo "Edited by big dick Morris (Still 2023)"
 echo ""
 echo "-----------------------------------------------------"
 echo ""
@@ -22,12 +21,12 @@ read -p "Enter the name of the ROOT partition (eg. sda2): " sda2
 # Sync time
 # ------------------------------------------------------
 timedatectl set-ntp true
-timedatectl set-timezone America/New_York 
+timedatectl set-timezone America/New_York
 
 # ------------------------------------------------------
 # Format partitions
 # ------------------------------------------------------
-mkfs.fat -F 32 /dev/$sda1;
+mkfs.fat -F 32 /dev/$sda1
 mkfs.btrfs -f /dev/$sda2
 
 # ------------------------------------------------------
@@ -35,10 +34,10 @@ mkfs.btrfs -f /dev/$sda2
 # ------------------------------------------------------
 mount /dev/$sda2 /mnt
 (
-cd /mnt
-btrfs subvolume create /mnt/@
-btrfs subvolume create /mnt/@home
-btrfs subvolume create /mnt/@var
+	cd /mnt
+	btrfs subvolume create /mnt/@
+	btrfs subvolume create /mnt/@home
+	btrfs subvolume create /mnt/@var
 )
 process_id=$!
 wait $process_id
@@ -54,7 +53,7 @@ mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@home /de
 mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@var /dev/$sda2 /mnt/var
 mount /dev/$sda1 /mnt/boot/efi
 
-read -p "Press any key to continue ..."
+read -p "Press any key to launch reflector and find the fastest mirrors"
 
 # ------------------------------------------------------
 # Select the fastest mirrors for location
@@ -70,7 +69,7 @@ pacstrap -K /mnt base linux linux-firmware intel-ucode btrfs-progs reflector git
 # ------------------------------------------------------
 # Generate fstab
 # ------------------------------------------------------
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U /mnt >>/mnt/etc/fstab
 cat /mnt/etc/fstab
 
 # ------------------------------------------------------
