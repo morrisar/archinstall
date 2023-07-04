@@ -85,6 +85,7 @@ cp 6-preload.sh /mnt/archinstall/
 cp 7-kvm.sh /mnt/archinstall/
 cp snapshot.sh /mnt/archinstall/
 cp i3_setup.sh /mnt/archinstall/
+cp hyprland.sh /mnt/archinstall/
 
 # ------------------------------------------------------
 # Chroot to installed sytem
