@@ -37,6 +37,7 @@ pacman -S grub grub-btrfs efibootmgr networkmanager network-manager-applet dialo
 process_id=$!
 wait $process_id
 echo "Exit status: $?"
+read -p "Press any key to continue"
 
 # ------------------------------------------------------
 # set lang utf8 US
@@ -48,7 +49,7 @@ echo "LANG=en_US.UTF-8" >>/etc/locale.conf
 # ------------------------------------------------------
 # Set Keyboard
 # ------------------------------------------------------
-echo "FONT=ter-v18n" >>/etc/vconsole.conf
+echo "FONT=ter-p20b" >>/etc/vconsole.conf
 
 # ------------------------------------------------------
 # Set hostname and localhost
@@ -104,12 +105,14 @@ systemctl enable acpid
 process_id=$!
 wait $process_id
 echo "Exit status: $?"
+read -p "Press any key to continue"
 
 # ------------------------------------------------------
 # Grub installation
 # ------------------------------------------------------
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
+read -p "Press any key to continue"
 
 # ------------------------------------------------------
 # Add btrfs and setfont to mkinitcpio
@@ -118,6 +121,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 # After:  BINARIES=(btrfs setfont)
 sed -i 's/BINARIES=()/BINARIES=(btrfs setfont)/g' /etc/mkinitcpio.conf
 mkinitcpio -p linux
+read -p "Press any key to continue"
 
 # ------------------------------------------------------
 # Add user to wheel
