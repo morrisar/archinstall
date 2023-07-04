@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#   ____             __ _                       _   _             
-#  / ___|___  _ __  / _(_) __ _ _   _ _ __ __ _| |_(_) ___  _ __  
-# | |   / _ \| '_ \| |_| |/ _` | | | | '__/ _` | __| |/ _ \| '_ \ 
+#   ____             __ _                       _   _
+#  / ___|___  _ __  / _(_) __ _ _   _ _ __ __ _| |_(_) ___  _ __
+# | |   / _ \| '_ \| |_| |/ _` | | | | '__/ _` | __| |/ _ \| '_ \
 # | |__| (_) | | | |  _| | (_| | |_| | | | (_| | |_| | (_) | | | |
 #  \____\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_|
-#                         |___/                                   
+#                         |___/
 # by Stephan Raabe (2023)
 # ------------------------------------------------------
 clear
@@ -33,7 +33,7 @@ pacman -Syy
 # ------------------------------------------------------
 # Install Packages
 # ------------------------------------------------------
-pacman -S grub grub-btrfs efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools base-devel linux-headers bluez bluez-utils cups hplip alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call tlp sof-firmware acpid os-prober ntfs-3g nvidia nvidia-utils nvidia-settings man xdg-user-dirs
+pacman -S grub grub-btrfs efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools base-devel linux-headers bluez bluez-utils cups alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call tlp sof-firmware acpid os-prober ntfs-3g nvidia nvidia-utils nvidia-settings man xdg-user-dirs neovim firefox
 process_id=$!
 wait $process_id
 echo "Exit status: $?"
@@ -41,19 +41,19 @@ echo "Exit status: $?"
 # ------------------------------------------------------
 # set lang utf8 US
 # ------------------------------------------------------
-echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >>/etc/locale.gen
 locale-gen
-echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+echo "LANG=en_US.UTF-8" >>/etc/locale.conf
 
 # ------------------------------------------------------
 # Set Keyboard
 # ------------------------------------------------------
-echo "FONT=ter-v18n" >> /etc/vconsole.conf
+echo "FONT=ter-v18n" >>/etc/vconsole.conf
 
 # ------------------------------------------------------
 # Set hostname and localhost
 # ------------------------------------------------------
-echo "$hostname" >> /etc/hostname
+echo "$hostname" >>/etc/hostname
 clear
 
 # ------------------------------------------------------
@@ -132,7 +132,7 @@ EDITOR=nvim sudo -E visudo
 usermod -aG wheel $username
 
 # ------------------------------------------------------
-# Copy installation scripts to home directory 
+# Copy installation scripts to home directory
 # ------------------------------------------------------
 cp /archinstall/3-yay.sh /home/$username
 cp /archinstall/4-zram.sh /home/$username
