@@ -33,7 +33,8 @@ pacman -Syy
 # ------------------------------------------------------
 # Install Packages
 # ------------------------------------------------------
-pacman -S grub grub-btrfs efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools base-devel linux-headers bluez bluez-utils cups alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call tlp sof-firmware acpid os-prober ntfs-3g nvidia nvidia-utils nvidia-settings man xdg-user-dirs neovim firefox
+pacman -S grub grub-btrfs efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools base-devel linux-headers bluez bluez-utils cups alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call tlp sof-firmware acpid os-prober ntfs-3g man xdg-user-dirs neovim firefox
+# nvidia nvidia-utils nvidia-settings
 process_id=$!
 wait $process_id
 echo "Exit status: $?"
@@ -143,6 +144,8 @@ cp /archinstall/4-zram.sh /home/$username
 cp /archinstall/5-timeshift.sh /home/$username
 cp /archinstall/6-preload.sh /home/$username
 cp /archinstall/snapshot.sh /home/$username
+cp /archinstall/i3-install.sh /home/$username
+cp /archinstall/hyprland.sh /home/$username
 
 clear
 echo "     _                   "
