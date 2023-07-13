@@ -1,13 +1,5 @@
 #!/bin/bash
 clear
-echo "Arch Install Script"
-echo ""
-echo "-----------------------------------------------------"
-echo ""
-echo "Important: Please make sure that you have followed the "
-echo "manual steps in the README to partition the harddisc!"
-echo "Warning: Run this script at your own risk."
-echo ""
 
 # ------------------------------------------------------
 # Enter partition names

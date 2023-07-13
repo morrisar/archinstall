@@ -40,11 +40,6 @@ locale-gen
 echo "LANG=en_US.UTF-8" >>/etc/locale.conf
 
 # ------------------------------------------------------
-# Set Keyboard
-# ------------------------------------------------------
-echo "FONT=ter-p20b" >>/etc/vconsole.conf
-
-# ------------------------------------------------------
 # Set hostname and localhost
 # ------------------------------------------------------
 echo "$hostname" >>/etc/hostname
@@ -108,7 +103,7 @@ read -p "Press any key to continue"
 # ------------------------------------------------------
 # Before: BINARIES=()
 # After:  BINARIES=(btrfs setfont)
-sed -i 's/BINARIES=()/BINARIES=(btrfs setfont)/g' /etc/mkinitcpio.conf
+sed -i 's/BINARIES=()/BINARIES=(btrfs)/g' /etc/mkinitcpio.conf
 mkinitcpio -p linux
 read -p "Press any key to continue"
 
