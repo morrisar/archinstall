@@ -1,13 +1,5 @@
 #!/bin/bash
 
-#   ____             __ _                       _   _
-#  / ___|___  _ __  / _(_) __ _ _   _ _ __ __ _| |_(_) ___  _ __
-# | |   / _ \| '_ \| |_| |/ _` | | | | '__/ _` | __| |/ _ \| '_ \
-# | |__| (_) | | | |  _| | (_| | |_| | | | (_| | |_| | (_) | | | |
-#  \____\___/|_| |_|_| |_|\__, |\__,_|_|  \__,_|\__|_|\___/|_| |_|
-#                         |___/
-# by Stephan Raabe (2023)
-# ------------------------------------------------------
 clear
 zoneinfo="America/New_York"
 read -p "Enter hostname: " hostname
@@ -33,7 +25,7 @@ pacman -Syy
 # ------------------------------------------------------
 # Install Packages
 # ------------------------------------------------------
-pacman -S grub grub-btrfs efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools base-devel linux-headers bluez bluez-utils cups alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call tlp sof-firmware acpid os-prober ntfs-3g man xdg-user-dirs neovim firefox
+pacman -S grub grub-btrfs efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools base-devel linux-headers bluez bluez-utils alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call tlp sof-firmware acpid os-prober ntfs-3g man xdg-user-dirs neovim firefox
 # nvidia nvidia-utils nvidia-settings
 process_id=$!
 wait $process_id
@@ -79,10 +71,6 @@ process_id=$!
 wait $process_id
 echo "Exit status: $?"
 systemctl enable bluetooth
-process_id=$!
-wait $process_id
-echo "Exit status: $?"
-systemctl enable cups.service
 process_id=$!
 wait $process_id
 echo "Exit status: $?"
@@ -144,7 +132,7 @@ cp /archinstall/4-zram.sh /home/$username
 cp /archinstall/5-timeshift.sh /home/$username
 cp /archinstall/6-preload.sh /home/$username
 cp /archinstall/snapshot.sh /home/$username
-cp /archinstall/i3-install.sh /home/$username
+# cp /archinstall/i3-install.sh /home/$username
 cp /archinstall/hyprland.sh /home/$username
 
 clear
@@ -154,12 +142,6 @@ echo " / _' |/ _ \| '_ \ / _ \ "
 echo "| (_| | (_) | | | |  __/ "
 echo " \__,_|\___/|_| |_|\___| "
 echo "                         "
-echo ""
-echo "Please find the following additional installation scripts in your home directory:"
-echo "- yay AUR helper: 3-yay.sh"
-echo "- zram swap: 4-zram.sh"
-echo "- timeshift snapshot tool: 5-timeshift.sh"
-echo "- preload application cache: 6-preload.sh"
 echo "unmount -R /mnt"
 echo "Please exit & shutdown (shutdown -h now), remove the installation media and start again."
 echo "Important: Activate WIFI after restart with nmtui."
