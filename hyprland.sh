@@ -16,3 +16,8 @@ process_id=$!
 wait $process_id
 echo "Exit status: $?"
 read -p "Press any key to continue..."
+sudo pacman -S kitty
+process_id=$!
+wait $process_id
+echo "Exit status: $?"
+read -p "Press any key to continue..."
