@@ -130,7 +130,6 @@ usermod -aG wheel $username
 cp /archinstall/3-yay.sh /home/$username
 cp /archinstall/4-zram.sh /home/$username
 cp /archinstall/5-timeshift.sh /home/$username
-cp /archinstall/6-preload.sh /home/$username
 cp /archinstall/snapshot.sh /home/$username
 # cp /archinstall/i3-install.sh /home/$username
 cp /archinstall/hyprland.sh /home/$username
