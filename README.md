@@ -49,13 +49,3 @@ cd archinstall
 ./1-install.sh
 
 ```
-
-## Additional information
-
-Please note that the scripts in folder /optional are not tested yet.
-
-After the installation you will find additional scripts in your home folder to install
-
-- yay aur helper
-- zram swap file
-- timeshift snapshots
