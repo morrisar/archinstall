@@ -1,51 +1,331 @@
-This is a bash based Arch Linux installation script with EFI boot loader and btrfs partition prepared for Timeshift or snapper.
+# Arch Base Install
 
-## Getting started
+### Basic setup:
 
-To make it easy for you to get started, here's a list of recommended next steps. 
-The script will ask for some information during the installation but is not performing any validation check so far.
-To get detailed information how to install Arch Linux, please visit https://wiki.archlinux.org/title/installation_guide
+##### Set font if needed:
 
+fonts located in ```/usr/share/kbd/consolefonts/```
 
+```bash
+setfont <font>
 ```
-# Load keyboard layout (replace de with us, fr, es if needed)
-loadkeys de-latin1
 
-# Increase font size (optional)
-setfont ter-p20b
+##### Set root password to SSH into machine:
 
-# Connect to WLAN (if not LAN)
-iwctl --passphrase [password] station wlan0 connect [network]
+```bash
+passwd
+```
 
-# Check internet connection
-ping -c4 www.archlinux.org
+##### Show IP Address:
 
-# Check partitions
+```bash
+ip a
+```
+
+##### Connect to wifi:
+
+```bash
+iwctl
+```
+
+
+
+```bash
+station wlan0 connect <ssid>
+```
+
+```bash
+ping -c 4 archlinux.org
+```
+
+##### Check timezone settings:
+
+```bash
+timedatectl
+timedatectl list-timezones | grep <search term>
+timedatectl set-timezone <time zone>
+```
+
+- run ```timedatectl``` and make sure NTP service = active
+
+### Disk setup:
+
+
+
+##### Disk Partitions:
+
+- Show if you are in EIFI mode:
+
+```bash
+ls /sys/firmware/efi/efivars
+```
+
+- Show disks and partitions:
+
+```bash
+lsblk # shows disks and partitions
+```
+
+- Show type of a current partition:
+
+```bash
+blkid /dev/<devicePartition>
+```
+
+- Create GPT partition table (for UEFI system)
+
+- We need an EFI partition (unless one is already made) and root. We can have a separate home partition if desired 
+
+- Create a swap partition if desired or install zram once installation of Arch is complete
+
+```bash
+gdisk /dev/<disk>
+o #Deletes partition table
+n #Creates a new partition
+w #Write changes to disk
+```
+
+
+
+##### Format partitions:
+
+- EFI:
+
+```bash
+mkfs.fat -F32 <partition>
+```
+
+- Swap:
+
+```bash
+mkswap <partition>
+```
+
+- BTRFS:
+
+```bash
+mkfs.btrfs <partition> #May need to use -f to force partition
+```
+
+```bash
+blkid <partition> #Verify partition file type
+```
+
+
+
+##### Create sub volumes:
+
+```bash
+mount /dev/<root partition> /mnt
+cd /mnt
+btrfs subvolume create /mnt/@
+btrfs subvolume create /mnt/@home
+btrfs subvolume create /mnt/@var
+```
+
+```bash
+umount /mnt
+```
+
+```bash
+mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@ 
+    /dev/<partition> /mnt
+```
+
+```bash
+mkdir -p /mnt/{boot/efi,home,var}
+```
+
+```bash
+mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@home 
+    /dev/<partition> /mnt/home
+mount -o noatime,compress=zstd,ssd,discard=async,space_cache=v2,subvol=@var 
+    /dev/<partition> /mnt/var
+```
+
+##### Mount EFI/Swap partition
+
+```bash
+mount /dev/<partition> /mnt/boot/efi
+swapon /dev/<partition>
+```
+
+```bash
 lsblk
-
-# Create partitions
-gdisk /dev/sda
-# Partition 1: +512M ef00 (for EFI)
-# Partition 2: Available space 8300 (for Linux filesystem)
-# (Optional Partition 3 for Virtual Machines)
-# Write w, Confirm Y
-
-# Sync package
-pacman -Syy
-
-# Maybe it's required to install the current archlinux keyring
-# if the installation of git fails.
-pacman -S archlinux-keyring
-pacman -Syy
-
-# Install git
-pacman -S git
-
-# Clone Installation
-git clone https://github.com/morrisar/archinstall
-cd archinstall
-
-# Start the script
-./1-install.sh
-
 ```
+
+
+
+##### Select the fastest mirrors for location:
+
+```bash
+reflector --country "United States" --age 6 --sort rate --save /etc/pacman.d/mirrorlist
+pacman -Sy
+```
+
+
+
+##### Install packages:
+
+```bash
+pacstrap /mnt base linux linux-firmware git neovim intel-ucode btrfs-progs
+```
+
+```bash
+genfstab -U /mnt >> /mnt/etc/fstab
+```
+
+```bash
+cat /mnt/etc/fstab #To check partitions
+```
+
+
+
+### Enter the arch installation
+
+```bash
+arch-chroot /mnt
+```
+
+```bash
+cat /etc/fstab #To check partitions
+```
+
+
+
+##### Enter time zone: See ^ for timedatectl
+
+```bash
+ln -sf /usr/share/zoneinfo/<country>/<location> /etc/localtime
+hwclock --systohc #Synchronizes hardware clock and system clock
+```
+
+```bash
+nvim /etc/locale.gen #Uncomment en_US.UTF.8
+locale-gen
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+```
+
+```bash
+nvim /etc/hostname
+```
+
+
+
+##### Set root password in the install:
+
+```bash
+passwd
+```
+
+
+
+##### Install additional packages:
+
+```bash
+pacman -S grub efibootmgr networkmanager networkmanager-applet dialog wpa_supplicant
+mtools dosfstools reflector base-devel linux-headers bluez bluez-utilz cups 
+hplip alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack
+bash-completion openssh rsync acpi acpi_call tlp sof-firmware acpid os-prober
+ntfs-3g nvidia nvidia-utils nvidia-settings grub-btrfs
+```
+
+
+
+##### Grub-install
+
+```bash
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+nvim /etc/default/grub #Uncomment Grub_Disable
+grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+
+
+##### Enable services:
+
+```bash
+systemctl enable NetworkManager
+systemctl enable bluetooth
+systemctl enable cups.service
+systemctl enable sshd
+systemctl enable tlp
+systemctl enable reflector.timer
+systemctl enable fstrim.timer
+systemctl enable acpid
+```
+
+
+
+##### Create User:
+
+```bash
+useradd -m <user-name>
+passwd <user-name>
+echo "<user-name> ALL=(ALL) ALL" >> /etc/sudoers.d/<user-name>
+usermod -c 'Andrew' <user-name> #To add a full name to the user
+```
+
+
+
+##### Install manuals:
+
+```bash
+pacman -S man
+```
+
+
+
+##### Clean up:
+
+```bash
+exit #Return to USB
+umount -R /mnt
+reboot
+```
+
+
+
+##### After reboot:
+
+```bash
+nmtli #Network manager
+ip -c a
+```
+
+
+
+##### Snapshot Utilites:
+
+```bash
+git clone https://aur.archlinux.org/yay
+cd yay
+makepkg -si
+```
+
+```bash
+yay -S timeshift timeshift-autosnap
+```
+
+```bash
+sudo timeshift --list-devices
+sudo timeshift --snapshot-device /dev/<device>
+sudo timeshift --create --comments "First Backup" --tags D
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+```
+
+
+
+
+
+
+
+##### Discord Replacement:
+
+- webcord
+
+<details>
+<summary>Example</summary>
+Put text here
+</details>
