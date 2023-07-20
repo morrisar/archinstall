@@ -73,7 +73,7 @@ cp 2-configuration.sh /mnt/archinstall/
 cp 3-yay.sh /mnt/archinstall/
 cp 4-zram.sh /mnt/archinstall/
 cp 5-timeshift.sh /mnt/archinstall/
-cp 7-kvm.sh /mnt/archinstall/
+cp 6-kvm.sh /mnt/archinstall/
 cp snapshot.sh /mnt/archinstall/
 # cp i3_setup.sh /mnt/archinstall/
 cp hyprland.sh /mnt/archinstall/
