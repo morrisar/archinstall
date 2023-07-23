@@ -56,7 +56,7 @@ pacman -Sy
 # ------------------------------------------------------
 # Install base packages
 # ------------------------------------------------------
-pacstrap -K /mnt base linux linux-firmware intel-ucode btrfs-progs reflector git neovim
+pacstrap -K /mnt base linux linux-firmware intel-ucode amd-ucode btrfs-progs reflector git neovim
 
 # ------------------------------------------------------
 # Generate fstab
@@ -68,7 +68,7 @@ cat /mnt/etc/fstab
 # Install configuration scripts
 # ------------------------------------------------------
 mkdir /mnt/archinstall
-cp 1-install.sh /mnt/archinstall/
+# cp 1-install.sh /mnt/archinstall/
 cp 2-configuration.sh /mnt/archinstall/
 cp 3-yay.sh /mnt/archinstall/
 cp 4-zram.sh /mnt/archinstall/
