@@ -4,6 +4,8 @@
 
 ##### Set font if needed:
 
+Lutgen
+
 fonts located in ```/usr/share/kbd/consolefonts/```
 
 ```bash
