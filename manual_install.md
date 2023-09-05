@@ -39,4 +39,11 @@ Swap if desired
 ```swapon /dev/swap_partition```
 
 ### Select mirrors
+Install reflector with ```pacman -S relector```
 
+Launch reflector with ```reflector --country "United States" --age 6 --sort rate --save /etc/pacman.d/mirrorlist```
+
+Sync mirrors ```pacman -Syyy <maybe -Sy only>``` 
+
+### Install essential packages
+```pacstrap -K /mnt base linux linux-firmware {editor ie neovim}```
