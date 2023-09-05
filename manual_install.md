@@ -32,9 +32,11 @@ Swap if desired
 ```mkswap /dev/swap_partition```
 
 ### Mount the filesystems
-
 ```mount /dev/root_partition /mnt```
 
 ```mount --mkdir /dev/EFI_partition /mnt/boot```
 
 ```swapon /dev/swap_partition```
+
+### Select mirrors
+
