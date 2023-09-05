@@ -1,3 +1,4 @@
+# Install
 ### Set keyboard layout and font
 ```ls /usr/share/kbd/keymaps/**/*.map.gz``` | grep if needed
 
@@ -12,6 +13,9 @@ Console fonts are located in /usr/share/kbd/consolefonts/
 ```cat /sys/firmware/efi/fw_platform_size```
 
 If the command returns 64, then system is booted in UEFI mode and has a 64-bit X64 UEFI
+
+### Update the system clock
+```timedatectl```
 
 ### Format hard drive
 List drives with 
@@ -47,3 +51,11 @@ Sync mirrors ```pacman -Syyy <maybe -Sy only>```
 
 ### Install essential packages
 ```pacstrap -K /mnt base linux linux-firmware {editor ie neovim}```
+# Configure
+generate fstab file using ```genfstab -U /mnt >> /mnt/etc/fstab
+
+check with ```cat /mnt/etc/fstab``` and edit if needed
+
+```arch-chroot /mnt```
+
+set timezone with ```ln -sf /usr/share/zoneinfo/*Region*/*City* /etc/localtime
