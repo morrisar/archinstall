@@ -58,4 +58,25 @@ check with ```cat /mnt/etc/fstab``` and edit if needed
 
 ```arch-chroot /mnt```
 
-set timezone with ```ln -sf /usr/share/zoneinfo/*Region*/*City* /etc/localtime
+set timezone with ```ln -sf /usr/share/zoneinfo/*Region*/*City* /etc/localtime```
+
+```hwclock --systohc```
+
+### Localization
+Edit /etc/locale.gen and uncomment ```en_US.UTF-8 UTF-8``` and other needed UTF-8 locales. 
+
+```locale-gen```
+
+Create the locale.conf file and set the LANG variable
+
+```/etc/locale.conf```
+
+```LANG=en_US.UTF-8```
+
+If console keyboard layout was set, make changes persistent in vconsole.conf
+
+```/etc/vconsole.conf```
+
+```KEYMAP=de-Latin1```
+
+
