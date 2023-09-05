@@ -15,7 +15,7 @@ Console fonts are located in /usr/share/kbd/consolefonts/
 If the command returns 64, then system is booted in UEFI mode and has a 64-bit X64 UEFI
 
 ### Update the system clock
-```timedatectl```
+```timedatectl``` (America/New_York)
 
 ### Format hard drive
 List drives with 
