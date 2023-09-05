@@ -89,4 +89,32 @@ modify mkinitcpio.conf and reacreate the initramfs image with ```mkinitcpio P```
 ```passwd```
 
 ### Grub
+
+May have to ```mkdir /boot/efi```
+```grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=GRUB```
 ```grub-mkconfig -o /boot/grub/grub.cfg```
+
+### Add user
+```useradd -m -G wheel $username```
+
+```passwd $username```
+
+### Enable Services
+systemctl enable NetworkManager
+
+systemctl enable bluetooth
+
+systemctl enable sshd
+
+systemctl enable tlp
+
+systemctl enable reflector.timer
+
+systemctl enable fstrim.timer
+
+systemctl enable acpid
+
+### Edit sudoers file
+Uncomment %wheel group in sudoers (around line 85) /etc/sudoers
+
+usermod -aG wheel $username
