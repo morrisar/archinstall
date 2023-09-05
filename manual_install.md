@@ -41,7 +41,7 @@ Swap if desired
 ### Mount the filesystems
 ```mount /dev/root_partition /mnt```
 
-```mount --mkdir /dev/EFI_partition /mnt/boot```
+```mount --mkdir /dev/EFI_partition /mnt/boot/efi```
 
 ```swapon /dev/swap_partition```
 
