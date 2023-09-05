@@ -62,6 +62,9 @@ set timezone with ```ln -sf /usr/share/zoneinfo/*Region*/*City* /etc/localtime``
 
 ```hwclock --systohc```
 
+### Install additional packages
+```pacman -S grub efibootmgr networkmanager network-manager-applet dialog wpa_supplicant mtools dosfstools base-devel linux-headers bluez bluez-utils alsa-utils pipewire pipewire-alsa pipewire-pulse pipewire-jack bash-completion openssh rsync acpi acpi_call tlp sof-firmware acpid os-prober ntfs-3g man xdg-user-dirs neovim firefox git amd-ucode intel-ucode```
+
 ### Localization
 Edit /etc/locale.gen and uncomment ```en_US.UTF-8 UTF-8``` and other needed UTF-8 locales. 
 
@@ -79,4 +82,11 @@ If console keyboard layout was set, make changes persistent in vconsole.conf
 
 ```KEYMAP=de-Latin1```
 
+### If needed:
+modify mkinitcpio.conf and reacreate the initramfs image with ```mkinitcpio P```
 
+### set root password
+```passwd```
+
+### Grub
+```grub-mkconfig -o /boot/grub/grub.cfg```
