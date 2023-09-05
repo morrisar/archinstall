@@ -17,6 +17,9 @@ If the command returns 64, then system is booted in UEFI mode and has a 64-bit X
 ### Update the system clock
 ```timedatectl``` (America/New_York)
 
+timedatectl set-ntp true
+timedatectl set-timezone America/New_York
+
 ### Format hard drive
 List drives with 
 ```lsblk``` 
