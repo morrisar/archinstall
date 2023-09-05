@@ -81,9 +81,14 @@ If console keyboard layout was set, make changes persistent in vconsole.conf
 ```/etc/vconsole.conf```
 
 ```KEYMAP=de-Latin1```
+### Create the hostname file:
+
+/etc/hostname
+
+yourhostname
 
 ### If needed:
-modify mkinitcpio.conf and reacreate the initramfs image with ```mkinitcpio P```
+modify mkinitcpio.conf and reacreate the initramfs image with ```mkinitcpio -P```
 
 ### set root password
 ```passwd```
@@ -118,3 +123,10 @@ systemctl enable acpid
 Uncomment %wheel group in sudoers (around line 85) /etc/sudoers
 
 usermod -aG wheel $username
+
+# Exit and reboot
+Exit the chroot environment by typing exit or pressing Ctrl+d.
+
+Optionally manually unmount all the partitions with umount -R /mnt: this allows noticing any "busy" partitions, and finding the cause with fuser(1).
+
+Finally, restart the machine by typing reboot: any partitions still mounted will be automatically unmounted by systemd. Remember to remove the installation medium and then login into the new system with the root account. 
